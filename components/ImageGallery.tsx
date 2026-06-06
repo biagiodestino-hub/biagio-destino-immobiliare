@@ -8,6 +8,10 @@ type ImageGalleryProps = {
 };
 
 function getBackgroundImage(image: string) {
+  if (!image) {
+    return "linear-gradient(135deg, rgba(14, 46, 79, 0.92), rgba(24, 111, 145, 0.58) 48%, rgba(232, 214, 184, 0.88))";
+  }
+
   return `linear-gradient(180deg, rgba(9, 31, 56, 0.06), rgba(9, 31, 56, 0.38)), url(${image})`;
 }
 
@@ -46,7 +50,7 @@ export function ImageGallery({ title, images }: ImageGalleryProps) {
               onClick={showPrevious}
               type="button"
             >
-              ‹
+              {"<"}
             </button>
             <button
               aria-label="Immagine successiva"
@@ -54,7 +58,7 @@ export function ImageGallery({ title, images }: ImageGalleryProps) {
               onClick={showNext}
               type="button"
             >
-              ›
+              {">"}
             </button>
           </div>
         ) : null}

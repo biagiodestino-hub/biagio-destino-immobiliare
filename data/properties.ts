@@ -22,6 +22,15 @@ export type Property = {
   galleryTone: "sea" | "sand" | "city";
 };
 
+const propertyImageBasePath = "/images/immobili";
+
+function getPropertyImages(filePrefix: string) {
+  return Array.from(
+    { length: 10 },
+    (_, index) => `${propertyImageBasePath}/${filePrefix}-${index + 1}.jpg`
+  );
+}
+
 export const properties: Property[] = [
   {
     slug: "appartamento-da-ristrutturare-capo-dorlando-san-gregorio",
@@ -40,18 +49,7 @@ export const properties: Property[] = [
     badges: ["Da ristrutturare", "Vista mare", "Investimento"],
     category: "Appartamento da personalizzare",
     galleryTone: "sea",
-    images: [
-      "/images/immobili/capo-dorlando-san-gregorio-1.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-2.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-3.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-4.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-5.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-6.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-7.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-8.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-9.jpg",
-      "/images/immobili/capo-dorlando-san-gregorio-10.jpg"
-    ],
+    images: getPropertyImages("capo-dorlando-san-gregorio"),
     sourceUrl: "https://www.gabetti.it/vendita/capo-d-orlando/appartamento/3296546",
     description:
       "A Capo d'Orlando, in Contrada San Gregorio, proponiamo appartamento da ristrutturare posto al secondo piano, con superficie di circa 110 mq. L'immobile è composto da 3 vani e doppi servizi ed è ideale per chi desidera personalizzare gli ambienti secondo il proprio gusto. Soluzione interessante sia come abitazione principale sia come investimento, in una zona apprezzata del territorio orlandino.",
@@ -83,18 +81,7 @@ export const properties: Property[] = [
     badges: ["Nuova costruzione", "Lungomare", "Terrazze"],
     category: "Appartamento sul lungomare",
     galleryTone: "sea",
-    images: [
-      "/images/immobili/lungomare-andrea-doria-1.jpg",
-      "/images/immobili/lungomare-andrea-doria-2.jpg",
-      "/images/immobili/lungomare-andrea-doria-3.jpg",
-      "/images/immobili/lungomare-andrea-doria-4.jpg",
-      "/images/immobili/lungomare-andrea-doria-5.jpg",
-      "/images/immobili/lungomare-andrea-doria-6.jpg",
-      "/images/immobili/lungomare-andrea-doria-7.jpg",
-      "/images/immobili/lungomare-andrea-doria-8.jpg",
-      "/images/immobili/lungomare-andrea-doria-9.jpg",
-      "/images/immobili/lungomare-andrea-doria-10.jpg"
-    ],
+    images: getPropertyImages("lungomare-andrea-doria"),
     sourceUrl: "https://www.gabetti.it/vendita/capo-d-orlando/appartamento/3305016",
     description:
       "Sul Lungomare Andrea Doria di Capo d'Orlando, proponiamo appartamento di nuova costruzione al piano terra, con superficie di circa 110 mq. L'immobile dispone di 3 vani, doppi servizi, due terrazze e posto auto scoperto. Una soluzione moderna e funzionale, ideale per chi cerca comfort, posizione strategica e spazi esterni vicino al mare.",
@@ -126,18 +113,7 @@ export const properties: Property[] = [
     badges: ["Indipendente", "Terreno", "Vista panoramica"],
     category: "Casa indipendente con terreno",
     galleryTone: "sand",
-    images: [
-      "/images/immobili/santagata-fiorita-1.jpg",
-      "/images/immobili/santagata-fiorita-2.jpg",
-      "/images/immobili/santagata-fiorita-3.jpg",
-      "/images/immobili/santagata-fiorita-4.jpg",
-      "/images/immobili/santagata-fiorita-5.jpg",
-      "/images/immobili/santagata-fiorita-6.jpg",
-      "/images/immobili/santagata-fiorita-7.jpg",
-      "/images/immobili/santagata-fiorita-8.jpg",
-      "/images/immobili/santagata-fiorita-9.jpg",
-      "/images/immobili/santagata-fiorita-10.jpg"
-    ],
+    images: getPropertyImages("santagata-fiorita"),
     sourceUrl:
       "https://www.gabetti.it/vendita/sant-agata-di-militello/casa-indipendente/3267539",
     description:
@@ -169,18 +145,7 @@ export const properties: Property[] = [
     badges: ["Residence", "Piscina", "Spazi esterni"],
     category: "Villetta in residence",
     galleryTone: "city",
-    images: [
-      "/images/immobili/acquedolci-buffone-1.jpg",
-      "/images/immobili/acquedolci-buffone-2.jpg",
-      "/images/immobili/acquedolci-buffone-3.jpg",
-      "/images/immobili/acquedolci-buffone-4.jpg",
-      "/images/immobili/acquedolci-buffone-5.jpg",
-      "/images/immobili/acquedolci-buffone-6.jpg",
-      "/images/immobili/acquedolci-buffone-7.jpg",
-      "/images/immobili/acquedolci-buffone-8.jpg",
-      "/images/immobili/acquedolci-buffone-9.jpg",
-      "/images/immobili/acquedolci-buffone-10.jpg"
-    ],
+    images: getPropertyImages("acquedolci-buffone"),
     description:
       "Ad Acquedolci, in Contrada Buffone, proponiamo villetta a schiera di circa 82 mq all'interno di un residence esclusivo con piscina e ampie aree verdi. L'immobile dispone di 3 vani, un bagno, terrazzi, cantina e posto auto. Soluzione ideale come casa vacanze, abitazione estiva o investimento immobiliare in contesto riservato.",
     seoDescription:
@@ -210,18 +175,7 @@ export const properties: Property[] = [
     badges: ["Due unità", "Corte esterna", "Mare vicino"],
     category: "Soluzione doppia vicino al mare",
     galleryTone: "sea",
-    images: [
-      "/images/immobili/pollina-rais-gerbi-1.jpg",
-      "/images/immobili/pollina-rais-gerbi-2.jpg",
-      "/images/immobili/pollina-rais-gerbi-3.jpg",
-      "/images/immobili/pollina-rais-gerbi-4.jpg",
-      "/images/immobili/pollina-rais-gerbi-5.jpg",
-      "/images/immobili/pollina-rais-gerbi-6.jpg",
-      "/images/immobili/pollina-rais-gerbi-7.jpg",
-      "/images/immobili/pollina-rais-gerbi-8.jpg",
-      "/images/immobili/pollina-rais-gerbi-9.jpg",
-      "/images/immobili/pollina-rais-gerbi-10.jpg"
-    ],
+    images: getPropertyImages("pollina-rais-gerbi"),
     description:
       "A Finale di Pollina, in Contrada Rais Gerbi, proponiamo due villette a schiera di circa 40 mq ciascuna, entrambe composte da 2 vani, un bagno e corte esterna. Soluzione interessante per chi cerca due unità vicine, ideali per uso familiare, investimento turistico o casa vacanze.",
     seoDescription:
