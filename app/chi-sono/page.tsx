@@ -1,21 +1,20 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ValuationCTA } from "@/components/ValuationCTA";
-import { whatsappUrl } from "@/lib/site";
+import { aboutText, emotionalQuote, serviceAreas, services, whatsappUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Chi sono - Agente immobiliare in Sicilia",
+  title: "Chi sono - Biagio Destino",
   description:
-    "Biagio Destino, agente immobiliare in Sicilia dal 2011. Consulenza, trattative, marketing immobiliare digitale e valorizzazione degli immobili."
+    "Biagio Destino lavora nel settore immobiliare dal 2011 tra Cefalù e Capo d'Orlando. Dal 2021 è abilitato come Agente d'Affari in Mediazione."
 };
 
-const values = ["Fiducia", "Trasparenza", "Rapidita", "Conoscenza locale"];
+const values = ["Fiducia", "Trasparenza", "Dedizione", "Conoscenza locale"];
 
 const timeline = [
-  ["2011", "Italcase Messina", "Consulente immobiliare"],
-  ["2012", "RE/MAX Quattropareti", "Consulente immobiliare"],
-  ["2012 - 2021", "Gagliardomoney", "Consulente e vice responsabile ufficio"],
-  ["2022 - Oggi", "Gabetti Cefalu", "Agente immobiliare senior"]
+  ["2011", "Ingresso nel settore immobiliare", "Inizio del percorso professionale con venditori e acquirenti."],
+  ["2021", "Abilitazione professionale", "Abilitazione alla professione di Agente d'Affari in Mediazione."],
+  ["Oggi", "Cefalù e Capo d'Orlando", "Consulenza immobiliare locale con accompagnamento fino al rogito."]
 ];
 
 export default function AboutPage() {
@@ -23,18 +22,19 @@ export default function AboutPage() {
     <>
       <section className="bg-sand-light pt-28">
         <div className="container-page grid gap-12 py-20 lg:grid-cols-[500px_1fr] lg:items-center">
-          <div className="profile-placeholder h-[520px] rounded-lg shadow-premium" />
+          <div
+            aria-label="Foto di Biagio Destino"
+            className="profile-photo-slot h-[520px] rounded-lg shadow-premium"
+          />
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-              Agente immobiliare in Sicilia
+              Agente immobiliare tra Cefalù e Capo d'Orlando
             </p>
             <h1 className="mt-4 text-4xl font-bold leading-tight text-navy md:text-6xl">
-              Esperienza immobiliare, conoscenza del territorio e consulenza reale.
+              Conoscenza del territorio, ascolto e presenza in ogni fase.
             </h1>
             <p className="mt-6 text-lg leading-8 text-ink/80">
-              Dal 2011 accompagno clienti nella vendita, acquisto e valorizzazione
-              di immobili in Sicilia, con un approccio professionale, trasparente
-              e orientato ai risultati.
+              {aboutText}
             </p>
             <a className="mt-8 inline-flex rounded-md bg-whatsapp px-6 py-4 font-semibold text-white shadow-premium" href={whatsappUrl}>
               Contattami su WhatsApp
@@ -51,15 +51,18 @@ export default function AboutPage() {
             </p>
             <h2 className="mt-4 text-4xl font-bold text-navy">Mi chiamo Biagio Destino</h2>
             <p className="mt-6 text-lg leading-8 text-ink/80">
-              Ho 49 anni e opero nel settore immobiliare dal 2011 come agente
-              immobiliare abilitato presso la Camera di Commercio di Messina.
-              Ho maturato competenze concrete nella gestione trattative,
-              acquisizione immobili, consulenza per venditori e acquirenti,
-              marketing immobiliare e gestione pratiche fino al rogito.
+              Sono di Sant'Agata di Militello e lavoro ogni giorno con l'obiettivo
+              di rendere compravendite e valutazioni più chiare, concrete e
+              sostenute da un rapporto di fiducia. Per me ogni casa porta con sé
+              una scelta importante: venderla o acquistarla significa aprire un
+              nuovo capitolo.
             </p>
+            <blockquote className="mt-8 border-l-4 border-gold pl-5 text-xl font-semibold leading-8 text-navy">
+              {emotionalQuote}
+            </blockquote>
           </div>
           <div className="grid gap-3">
-            {["Immobili vista mare", "Proprieta turistiche", "Investimenti", "Case da ristrutturare", "Seconde case"].map((item) => (
+            {serviceAreas.slice(0, 5).map((item) => (
               <div key={item} className="rounded-full border border-sand bg-sand-light px-5 py-3 font-semibold text-navy">
                 {item}
               </div>
@@ -76,17 +79,18 @@ export default function AboutPage() {
             </p>
             <h2 className="mt-4 text-4xl font-bold text-navy">Il mio approccio</h2>
             <p className="mt-5 text-lg leading-8 text-ink/75">
-              Ogni immobile ha una storia e un potenziale da valorizzare con
-              attenzione, strategia e strumenti digitali moderni.
+              Ogni immobile ha una storia, un valore e un pubblico possibile. Il
+              mio lavoro è mettere insieme analisi, comunicazione e gestione
+              pratica per arrivare alla vendita con metodo.
             </p>
           </div>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {["Trasparenza e attenzione", "Marketing immobiliare digitale", "Virtual tour 360 e video"].map((item) => (
+            {services.slice(0, 3).map((item) => (
               <div key={item} className="rounded-lg bg-white p-8 shadow-soft">
                 <h3 className="text-2xl font-bold text-navy">{item}</h3>
                 <p className="mt-4 leading-7 text-ink/65">
-                  Supporto costante e strumenti moderni per valorizzare ogni
-                  immobile e velocizzare la vendita.
+                  Supporto concreto, comunicazione chiara e attenzione ai
+                  passaggi decisivi della compravendita.
                 </p>
               </div>
             ))}
@@ -126,11 +130,11 @@ export default function AboutPage() {
       </section>
 
       <ValuationCTA
-        title="Vuoi vendere o acquistare un immobile in Sicilia?"
-        text="Affidati a un professionista con esperienza reale sul territorio e una strategia moderna di valorizzazione immobiliare."
+        title="Vuoi vendere o acquistare tra Cefalù e Capo d'Orlando?"
+        text="Affidati a un professionista con esperienza reale sul territorio e un piano marketing personalizzato."
       >
         <Link className="rounded-md bg-white px-6 py-4 font-semibold text-navy" href="/contatti">
-          Richiedi una valutazione gratuita
+          Richiedi una valutazione
         </Link>
       </ValuationCTA>
     </>

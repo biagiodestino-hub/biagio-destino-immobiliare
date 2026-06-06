@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { whatsappUrl } from "@/lib/site";
+import { brandName, whatsappUrl } from "@/lib/site";
 
 const items = [
   { href: "/", label: "Home" },
@@ -18,7 +18,7 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-stone/70 bg-white/95 shadow-soft backdrop-blur">
       <nav className="container-page flex h-20 items-center justify-between gap-8">
-        <Link href="/" className="shrink-0">
+        <Link href="/" className="shrink-0" aria-label={brandName}>
           <span className="block text-xl font-bold leading-none text-navy">Biagio Destino</span>
           <span className="mt-1 block text-xs font-semibold uppercase tracking-[0.18em] text-gold">
             Immobiliare

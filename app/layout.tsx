@@ -3,29 +3,41 @@ import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
-import { siteUrl } from "@/lib/site";
+import { brandName, domain, siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Biagio Destino Immobiliare | Agente immobiliare in Sicilia",
-    template: "%s | Biagio Destino Immobiliare"
+    default: `${brandName} | Agente immobiliare tra Cefalù e Capo d'Orlando`,
+    template: `%s | ${brandName}`
   },
   description:
-    "Agente immobiliare in Sicilia specializzato in immobili vista mare, case in vendita, investimenti, seconde case e valutazione gratuita immobile.",
+    "Biagio Destino Immobiliare accompagna venditori e acquirenti tra Cefalù e Capo d'Orlando con valutazioni, compravendite e piani marketing personalizzati.",
   keywords: [
-    "agente immobiliare in Sicilia",
-    "immobili vista mare Sicilia",
-    "case in vendita Sicilia",
-    "immobili da investimento Sicilia",
-    "valutazione gratuita immobile"
+    "Biagio Destino Immobiliare",
+    "agente immobiliare Cefalù",
+    "agenzia immobiliare Cefalù",
+    "case in vendita Cefalù",
+    "valutazione immobiliare Cefalù",
+    "immobili Capo d'Orlando",
+    "compravendite immobiliari Sicilia"
   ],
+  alternates: {
+    canonical: siteUrl
+  },
   openGraph: {
-    title: "Biagio Destino Immobiliare",
+    title: brandName,
     description:
-      "Immobili selezionati, consulenza reale e marketing immobiliare moderno in Sicilia.",
+      "Compravendite, valutazioni e accompagnamento fino al rogito tra Cefalù e Capo d'Orlando.",
+    url: siteUrl,
+    siteName: brandName,
     locale: "it_IT",
     type: "website"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: brandName,
+    description: `Sito ufficiale ${domain}`
   }
 };
 

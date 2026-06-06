@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { ImageGallery } from "@/components/ImageGallery";
 import { ValuationCTA } from "@/components/ValuationCTA";
 import { getPropertyBySlug, properties } from "@/data/properties";
-import { whatsappUrl } from "@/lib/site";
+import { email, phoneDisplay, whatsappUrl } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${property.title} a ${property.location}`,
-    description: `${property.title}: ${property.squareMeters} mq, ${property.rooms} camere, ${property.bathrooms} bagni. Immobile in Sicilia ideale per residenza o investimento.`
+    description: `${property.title}: ${property.squareMeters} mq, ${property.rooms} camere, ${property.bathrooms} bagni. Immobile seguito da Biagio Destino Immobiliare.`
   };
 }
 
@@ -103,8 +103,8 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 </a>
               </div>
               <p className="mt-6 text-sm leading-6 text-ink/60">
-                +39 333 000 0000<br />
-                info@biagiodestino.it
+                {phoneDisplay}<br />
+                {email}
               </p>
             </aside>
           </div>

@@ -27,7 +27,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
           href={`/immobili/${property.slug}`}
           className="mt-6 inline-flex rounded-md border border-navy px-5 py-3 text-sm font-semibold text-navy"
         >
-          Scopri di piu
+          Scopri di più
         </Link>
       </div>
     </article>

@@ -94,6 +94,16 @@ a {
   background: #091f38;
 }
 
+.profile-photo-slot {
+  position: relative;
+  overflow: hidden;
+  background-image:
+    url("/images/biagio-destino.jpg"),
+    linear-gradient(180deg, #f6f0e2 0%, #d8e3e7 55%, #0e2e4f 100%);
+  background-position: center;
+  background-size: cover;
+}
+
 .section-pad {
   padding-block: clamp(72px, 8vw, 112px);
 }

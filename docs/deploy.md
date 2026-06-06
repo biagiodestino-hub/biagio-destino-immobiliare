@@ -50,8 +50,8 @@ Metodo consigliato:
 ## Variabili ambiente Vercel
 
 ```text
-NEXT_PUBLIC_SITE_URL=https://biagiodestinoimmobiliare.it
-NEXT_PUBLIC_WHATSAPP_NUMBER=393330000000
+NEXT_PUBLIC_SITE_URL=https://www.destinobiagioimmobiliare.it
+NEXT_PUBLIC_WHATSAPP_NUMBER=393204423418
 ```
 
 Quando colleghi il dominio reale, aggiorna `NEXT_PUBLIC_SITE_URL` e ridistribuisci.

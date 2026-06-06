@@ -9,8 +9,8 @@ type ValuationCTAProps = {
 };
 
 export function ValuationCTA({
-  title = "Vuoi vendere casa in Sicilia?",
-  text = "Richiedi una valutazione gratuita e scopri una strategia moderna per valorizzare il tuo immobile.",
+  title = "Vuoi vendere casa tra Cefalù e Capo d'Orlando?",
+  text = "Richiedi una valutazione immobiliare e costruisci un piano marketing personalizzato per valorizzare il tuo immobile.",
   children
 }: ValuationCTAProps) {
   return (
@@ -18,7 +18,7 @@ export function ValuationCTA({
       <div className="container-page flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
         <div className="max-w-2xl">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-sand">
-            Valutazione gratuita immobile
+            Valutazione immobiliare
           </p>
           <h2 className="mt-4 text-4xl font-bold leading-tight">{title}</h2>
           <p className="mt-4 text-lg leading-8 text-white/80">{text}</p>
@@ -29,7 +29,7 @@ export function ValuationCTA({
           </a>
           {children ?? (
             <Link className="rounded-md bg-gold px-6 py-4 text-center font-semibold text-white" href="/contatti">
-              Richiedi valutazione gratuita
+              Richiedi una valutazione
             </Link>
           )}
         </div>

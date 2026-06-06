@@ -30,6 +30,6 @@ npm run build
 3. Framework preset: Next.js.
 4. Build command: `npm run build`.
 5. Output: automatico per Next.js.
-6. Aggiungi il dominio finale e aggiorna `metadataBase`, `robots.ts` e `sitemap.ts` se diverso da `biagiodestinoimmobiliare.it`.
+6. Aggiungi il dominio finale `www.destinobiagioimmobiliare.it` e verifica le variabili ambiente.
 
 Guida completa: [docs/deploy.md](docs/deploy.md).
