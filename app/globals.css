@@ -104,6 +104,26 @@ a {
   background-size: cover;
 }
 
+.property-photo-placeholder {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(14, 46, 79, 0.92), rgba(24, 111, 145, 0.58) 48%, rgba(232, 214, 184, 0.88)),
+    #d8e3e7;
+  background-position: center;
+  background-size: cover;
+}
+
+.property-photo-placeholder::after {
+  content: "";
+  position: absolute;
+  inset: auto 24px 22px 24px;
+  height: 44px;
+  border-radius: 6px;
+  background: rgba(245, 240, 229, 0.82);
+  box-shadow: 0 -38px 0 rgba(245, 240, 229, 0.42);
+}
+
 .section-pad {
   padding-block: clamp(72px, 8vw, 112px);
 }

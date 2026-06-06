@@ -22,8 +22,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${property.title} a ${property.location}`,
-    description: `${property.title}: ${property.squareMeters} mq, ${property.rooms} camere, ${property.bathrooms} bagni. Immobile seguito da Biagio Destino Immobiliare.`
+    title: `${property.title} | ${property.location}`,
+    description: property.seoDescription,
+    openGraph: {
+      title: property.title,
+      description: property.seoDescription,
+      type: "article"
+    }
   };
 }
 
@@ -35,14 +40,29 @@ export default async function PropertyDetailPage({ params }: PageProps) {
     notFound();
   }
 
+  const summary = [
+    property.squareMetersLabel,
+    property.roomsLabel,
+    property.bathroomsLabel,
+    property.type,
+    property.floor
+  ].filter(Boolean);
+
   return (
     <>
       <section className="bg-white pb-14 pt-28">
         <div className="container-page">
-          <ImageGallery tone={property.galleryTone} title={property.title} />
+          <ImageGallery image={property.image} title={property.title} />
           <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_380px]">
             <article>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold">
+              <div className="flex flex-wrap gap-2">
+                {property.badges.map((badge) => (
+                  <span key={badge} className="rounded-full bg-gold px-3 py-2 text-xs font-bold text-white">
+                    {badge}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
                 {property.location}, {property.province}
               </p>
               <h1 className="mt-4 text-4xl font-bold leading-tight text-navy md:text-5xl">
@@ -54,12 +74,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
               </p>
 
               <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {[
-                  `${property.squareMeters} mq`,
-                  `${property.rooms} camere`,
-                  `${property.bathrooms} bagni`,
-                  property.category
-                ].map((feature) => (
+                {summary.map((feature) => (
                   <div key={feature} className="rounded-lg bg-mist p-5 font-semibold text-navy">
                     {feature}
                   </div>
@@ -77,15 +92,21 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 </div>
               </div>
 
-              <div className="mt-10 grid gap-6 md:grid-cols-2">
-                <div className="rounded-lg bg-mist p-8">
-                  <h3 className="text-xl font-bold text-navy">Mappa zona immobile</h3>
-                  <div className="mt-6 h-56 rounded-lg bg-gradient-to-br from-stone to-sand-light" />
-                </div>
-                <div className="rounded-lg bg-sand-light p-8">
-                  <h3 className="text-xl font-bold text-navy">Planimetria</h3>
-                  <div className="mt-6 h-56 rounded-lg border border-gold/50" />
-                </div>
+              <div className="mt-10 rounded-lg bg-sand-light p-8">
+                <h2 className="text-2xl font-bold text-navy">Posizione e contesto</h2>
+                <p className="mt-4 leading-7 text-ink/70">
+                  L'immobile si trova a {property.location}, in un'area seguita
+                  direttamente da Biagio Destino Immobiliare per compravendite,
+                  valutazioni e accompagnamento fino al rogito.
+                </p>
+                {property.sourceUrl ? (
+                  <a
+                    className="mt-6 inline-flex rounded-md border border-navy px-5 py-3 text-sm font-semibold text-navy"
+                    href={property.sourceUrl}
+                  >
+                    Vedi fonte annuncio
+                  </a>
+                ) : null}
               </div>
             </article>
 
@@ -96,10 +117,10 @@ export default async function PropertyDetailPage({ params }: PageProps) {
               </p>
               <div className="mt-6 grid gap-3">
                 <a className="rounded-md bg-whatsapp px-5 py-4 text-center font-semibold text-white" href={whatsappUrl}>
-                  WhatsApp
+                  Scrivi su WhatsApp
                 </a>
                 <a className="rounded-md bg-gold px-5 py-4 text-center font-semibold text-white" href="/contatti">
-                  Prenota una visita
+                  Vai ai contatti
                 </a>
               </div>
               <p className="mt-6 text-sm leading-6 text-ink/60">
