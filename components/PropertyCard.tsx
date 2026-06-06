@@ -6,13 +6,15 @@ type PropertyCardProps = {
 };
 
 export function PropertyCard({ property }: PropertyCardProps) {
+  const coverImage = property.images[0];
+
   return (
     <article className="overflow-hidden rounded-lg border border-stone bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-premium">
       <div
         aria-label={`Foto immobile ${property.title}`}
         className="property-photo-placeholder h-56"
         style={{
-          backgroundImage: `linear-gradient(180deg, rgba(9, 31, 56, 0.08), rgba(9, 31, 56, 0.42)), url(${property.image})`
+          backgroundImage: `linear-gradient(180deg, rgba(9, 31, 56, 0.08), rgba(9, 31, 56, 0.42)), url(${coverImage})`
         }}
       />
       <div className="p-6">

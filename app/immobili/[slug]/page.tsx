@@ -27,7 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: property.title,
       description: property.seoDescription,
-      type: "article"
+      type: "article",
+      images: property.images.slice(0, 1)
     }
   };
 }
@@ -52,7 +53,7 @@ export default async function PropertyDetailPage({ params }: PageProps) {
     <>
       <section className="bg-white pb-14 pt-28">
         <div className="container-page">
-          <ImageGallery image={property.image} title={property.title} />
+          <ImageGallery images={property.images} title={property.title} />
           <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_380px]">
             <article>
               <div className="flex flex-wrap gap-2">
