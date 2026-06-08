@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
-import { properties } from "@/data/properties";
+import { getPublishedProperties } from "@/lib/sanity.queries";
 import { siteUrl } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const properties = await getPublishedProperties();
+
   const staticRoutes = ["", "/immobili", "/chi-sono", "/contatti"].map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date()

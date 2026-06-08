@@ -9,6 +9,24 @@ Sito immobiliare sviluppato con Next.js, Tailwind CSS e TypeScript, pronto per V
 - Scheda immobile
 - Chi sono
 - Contatti
+- Studio CMS: `/studio`
+
+## Sanity CMS
+
+Gli immobili vengono letti da Sanity quando sono configurate le variabili:
+
+```text
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_READ_TOKEN=
+```
+
+Se Sanity non è configurato o non risponde, il sito usa il fallback locale in `data/properties.ts`.
+
+Nel CMS il documento `property` supporta:
+titolo, slug, prezzo, località, tipologia, piano, superficie, vani, bagni, descrizione, badge, caratteristiche, immagini multiple, evidenza homepage, link origine e pubblicazione.
+
+La homepage mostra solo immobili `isFeatured = true`; la pagina immobili mostra solo `published = true`.
 
 ## Avvio locale
 

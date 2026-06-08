@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PropertyCard } from "@/components/PropertyCard";
 import { ValuationCTA } from "@/components/ValuationCTA";
-import { properties } from "@/data/properties";
+import { getPublishedProperties } from "@/lib/sanity.queries";
 
 export const metadata: Metadata = {
   title: "Immobili in vendita tra Cefalù e Capo d'Orlando",
@@ -9,7 +9,9 @@ export const metadata: Metadata = {
     "Scopri immobili reali selezionati da Biagio Destino Immobiliare: appartamenti, villette e case indipendenti a Capo d'Orlando, Sant'Agata di Militello, Acquedolci e Pollina."
 };
 
-export default function PropertiesPage() {
+export default async function PropertiesPage() {
+  const properties = await getPublishedProperties();
+
   return (
     <>
       <section className="bg-sand-light pb-16 pt-32">

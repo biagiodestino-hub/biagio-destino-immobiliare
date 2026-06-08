@@ -9,7 +9,10 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@sanity/image-url": "latest",
     "next": "^15.3.3",
+    "next-sanity": "latest",
+    "sanity": "latest",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

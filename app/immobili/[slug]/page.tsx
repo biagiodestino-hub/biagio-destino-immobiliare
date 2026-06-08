@@ -2,20 +2,21 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ImageGallery } from "@/components/ImageGallery";
 import { ValuationCTA } from "@/components/ValuationCTA";
-import { getPropertyBySlug, properties } from "@/data/properties";
+import { getPropertyBySlug, getPublishedProperties } from "@/lib/sanity.queries";
 import { email, phoneDisplay, whatsappUrl } from "@/lib/site";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const properties = await getPublishedProperties();
   return properties.map((property) => ({ slug: property.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const property = getPropertyBySlug(slug);
+  const property = await getPropertyBySlug(slug);
 
   if (!property) {
     return {};
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PropertyDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const property = getPropertyBySlug(slug);
+  const property = await getPropertyBySlug(slug);
 
   if (!property) {
     notFound();
