@@ -18,7 +18,9 @@ export type Property = {
   seoDescription: string;
   features: string[];
   images: string[];
+  isFeatured?: boolean;
   sourceUrl?: string;
+  published?: boolean;
   galleryTone: "sea" | "sand" | "city";
 };
 
@@ -50,6 +52,8 @@ export const properties: Property[] = [
     category: "Appartamento da personalizzare",
     galleryTone: "sea",
     images: getPropertyImages("capo-dorlando-san-gregorio"),
+    isFeatured: true,
+    published: true,
     sourceUrl: "https://www.gabetti.it/vendita/capo-d-orlando/appartamento/3296546",
     description:
       "A Capo d'Orlando, in Contrada San Gregorio, proponiamo appartamento da ristrutturare posto al secondo piano, con superficie di circa 110 mq. L'immobile è composto da 3 vani e doppi servizi ed è ideale per chi desidera personalizzare gli ambienti secondo il proprio gusto. Soluzione interessante sia come abitazione principale sia come investimento, in una zona apprezzata del territorio orlandino.",
@@ -82,6 +86,8 @@ export const properties: Property[] = [
     category: "Appartamento sul lungomare",
     galleryTone: "sea",
     images: getPropertyImages("lungomare-andrea-doria"),
+    isFeatured: true,
+    published: true,
     sourceUrl: "https://www.gabetti.it/vendita/capo-d-orlando/appartamento/3305016",
     description:
       "Sul Lungomare Andrea Doria di Capo d'Orlando, proponiamo appartamento di nuova costruzione al piano terra, con superficie di circa 110 mq. L'immobile dispone di 3 vani, doppi servizi, due terrazze e posto auto scoperto. Una soluzione moderna e funzionale, ideale per chi cerca comfort, posizione strategica e spazi esterni vicino al mare.",
@@ -114,6 +120,8 @@ export const properties: Property[] = [
     category: "Casa indipendente con terreno",
     galleryTone: "sand",
     images: getPropertyImages("santagata-fiorita"),
+    isFeatured: true,
+    published: true,
     sourceUrl:
       "https://www.gabetti.it/vendita/sant-agata-di-militello/casa-indipendente/3267539",
     description:
@@ -146,6 +154,8 @@ export const properties: Property[] = [
     category: "Villetta in residence",
     galleryTone: "city",
     images: getPropertyImages("acquedolci-buffone"),
+    isFeatured: false,
+    published: true,
     description:
       "Ad Acquedolci, in Contrada Buffone, proponiamo villetta a schiera di circa 82 mq all'interno di un residence esclusivo con piscina e ampie aree verdi. L'immobile dispone di 3 vani, un bagno, terrazzi, cantina e posto auto. Soluzione ideale come casa vacanze, abitazione estiva o investimento immobiliare in contesto riservato.",
     seoDescription:
@@ -176,6 +186,8 @@ export const properties: Property[] = [
     category: "Soluzione doppia vicino al mare",
     galleryTone: "sea",
     images: getPropertyImages("pollina-rais-gerbi"),
+    isFeatured: false,
+    published: true,
     description:
       "A Finale di Pollina, in Contrada Rais Gerbi, proponiamo due villette a schiera di circa 40 mq ciascuna, entrambe composte da 2 vani, un bagno e corte esterna. Soluzione interessante per chi cerca due unità vicine, ideali per uso familiare, investimento turistico o casa vacanze.",
     seoDescription:
