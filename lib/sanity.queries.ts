@@ -111,12 +111,12 @@ export async function getPublishedProperties() {
     return sanityProperties;
   }
 
-  return localProperties.filter((property) => property.published);
+  return localProperties.filter((property) => property.published !== false);
 }
 
 export async function getFeaturedProperties() {
   const properties = await getPublishedProperties();
-  return properties.filter((property) => property.isFeatured);
+  return properties.filter((property) => property.isFeatured === true);
 }
 
 export async function getPropertyBySlug(slug: string) {

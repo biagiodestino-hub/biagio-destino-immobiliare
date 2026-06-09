@@ -52,6 +52,20 @@ Metodo consigliato:
 ```text
 NEXT_PUBLIC_SITE_URL=https://www.destinobiagioimmobiliare.it
 NEXT_PUBLIC_WHATSAPP_NUMBER=393204423418
+NEXT_PUBLIC_SANITY_PROJECT_ID=
+NEXT_PUBLIC_SANITY_DATASET=production
+SANITY_API_READ_TOKEN=
 ```
 
 Quando colleghi il dominio reale, aggiorna `NEXT_PUBLIC_SITE_URL` e ridistribuisci.
+
+## Sanity CMS
+
+1. Installa le dipendenze con `npm install`.
+2. Configura un progetto Sanity e copia il project ID in `NEXT_PUBLIC_SANITY_PROJECT_ID`.
+3. Usa il dataset `production` oppure aggiorna `NEXT_PUBLIC_SANITY_DATASET`.
+4. Crea un token di lettura Sanity e inseriscilo in `SANITY_API_READ_TOKEN` se il dataset non è pubblico.
+5. Apri `/studio` per gestire gli immobili.
+
+Il sito legge solo immobili con `published = true` e mostra in homepage solo quelli con `isFeatured = true`.
+Se Sanity non è configurato, resta attivo il fallback locale in `data/properties.ts`.

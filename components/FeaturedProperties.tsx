@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { properties } from "@/data/properties";
 import { PropertyCard } from "@/components/PropertyCard";
+import { getFeaturedProperties } from "@/lib/sanity.queries";
 
-export function FeaturedProperties() {
+export async function FeaturedProperties() {
+  const properties = await getFeaturedProperties();
+
   return (
     <section className="section-pad bg-white">
       <div className="container-page">
@@ -18,11 +20,13 @@ export function FeaturedProperties() {
             nelle zone seguite da Biagio Destino Immobiliare.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {properties.slice(0, 3).map((property) => (
-            <PropertyCard key={property.slug} property={property} />
-          ))}
-        </div>
+        {properties.length > 0 ? (
+          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {properties.slice(0, 3).map((property) => (
+              <PropertyCard key={property.slug} property={property} />
+            ))}
+          </div>
+        ) : null}
         <div className="mt-10 text-center">
           <Link className="inline-flex rounded-md bg-navy px-6 py-4 font-semibold text-white" href="/immobili">
             Guarda tutti gli immobili
