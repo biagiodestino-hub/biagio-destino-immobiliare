@@ -1,9 +1,5 @@
 import { defineField, defineType } from "sanity";
 
-type ValidationRule = {
-  required: () => ValidationRule;
-};
-
 export const property = defineType({
   name: "property",
   title: "Immobile",
@@ -13,7 +9,7 @@ export const property = defineType({
       name: "title",
       title: "Titolo",
       type: "string",
-      validation: (rule: ValidationRule) => rule.required()
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: "slug",
@@ -23,7 +19,7 @@ export const property = defineType({
         source: "title",
         maxLength: 96
       },
-      validation: (rule: ValidationRule) => rule.required()
+      validation: (Rule) => Rule.required()
     }),
     defineField({
       name: "price",
