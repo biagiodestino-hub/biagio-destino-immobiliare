@@ -203,6 +203,10 @@ export const properties: Property[] = [
   }
 ];
 
+export function getPublishedLocalProperties() {
+  return properties.filter((property) => property.published !== false);
+}
+
 export function getPropertyBySlug(slug: string) {
-  return properties.find((property) => property.slug === slug);
+  return getPublishedLocalProperties().find((property) => property.slug === slug);
 }
