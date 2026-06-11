@@ -1,32 +1,6 @@
 # Deploy GitHub + Vercel
 
-## Prerequisiti locali
-
-Installa:
-
-- Git: https://git-scm.com/download/win
-- GitHub CLI: https://cli.github.com/
-- Node.js LTS: https://nodejs.org/
-
-Poi riapri il terminale nella cartella del progetto.
-
-## Collegare il progetto a GitHub
-
-```bash
-git init
-git add .
-git commit -m "Initial real estate website"
-gh auth login
-gh repo create biagio-destino-immobiliare --private --source=. --remote=origin --push
-```
-
-Se vuoi il repository pubblico:
-
-```bash
-gh repo create biagio-destino-immobiliare --public --source=. --remote=origin --push
-```
-
-## Verifica prima del deploy
+## Verifica locale
 
 ```bash
 npm install
@@ -36,18 +10,14 @@ npm run build
 
 ## Deploy su Vercel
 
-Metodo consigliato:
+1. Importa il repository GitHub su Vercel.
+2. Framework preset: Next.js.
+3. Install command: `npm install`.
+4. Build command: `npm run build`.
+5. Output directory: lascia vuoto.
+6. Configura le variabili ambiente.
 
-1. Vai su https://vercel.com/new
-2. Importa il repository GitHub `biagio-destino-immobiliare`
-3. Framework preset: Next.js
-4. Install command: `npm install`
-5. Build command: `npm run build`
-6. Output directory: lascia vuoto
-7. Aggiungi le variabili ambiente da `.env.example`
-8. Clicca Deploy
-
-## Variabili ambiente Vercel
+## Variabili ambiente
 
 ```text
 NEXT_PUBLIC_SITE_URL=https://www.destinobiagioimmobiliare.it
@@ -57,15 +27,26 @@ NEXT_PUBLIC_SANITY_DATASET=production
 SANITY_API_READ_TOKEN=
 ```
 
-Quando colleghi il dominio reale, aggiorna `NEXT_PUBLIC_SITE_URL` e ridistribuisci.
+## Configurazione Sanity
 
-## Sanity CMS
+Apri `/studio` e compila i singleton:
 
-1. Installa le dipendenze con `npm install`.
-2. Configura un progetto Sanity e copia il project ID in `NEXT_PUBLIC_SANITY_PROJECT_ID`.
-3. Usa il dataset `production` oppure aggiorna `NEXT_PUBLIC_SANITY_DATASET`.
-4. Crea un token di lettura Sanity e inseriscilo in `SANITY_API_READ_TOKEN` se il dataset non è pubblico.
-5. Apri `/studio` per gestire gli immobili.
+- Impostazioni sito
+- Homepage
+- Chi sono
+- Contatti
 
-Il sito legge solo immobili con `published = true` e mostra in homepage solo quelli con `isFeatured = true`.
-Se Sanity non è configurato, resta attivo il fallback locale in `data/properties.ts`.
+Poi crea:
+
+- servizi
+- zone servite
+- immobili
+
+Il sito mostra esclusivamente immobili Sanity con `published = true`. La
+homepage mostra soltanto quelli con `isFeatured = true`.
+
+Le pagine usano una rigenerazione di 60 secondi, quindi le modifiche pubblicate
+nel CMS diventano visibili senza un nuovo deploy manuale.
+
+`data/properties.ts` resta un archivio storico e non viene utilizzato dal
+frontend.

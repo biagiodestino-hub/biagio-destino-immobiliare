@@ -1,25 +1,25 @@
 import Link from "next/link";
 import {
-  brandName,
-  email,
-  facebookUrl,
-  officeAddress,
-  phoneDisplay,
-  services,
-  whatsappUrl
-} from "@/lib/site";
+  createWhatsappUrl,
+  getServices,
+  getSiteSettings
+} from "@/lib/sanity.queries";
 
-export function Footer() {
-  const telHref = `tel:${phoneDisplay.replace(/\s/g, "")}`;
+export async function Footer() {
+  const [settings, services] = await Promise.all([
+    getSiteSettings(),
+    getServices()
+  ]);
+  const telHref = `tel:${settings.phone.replace(/[^\d+]/g, "")}`;
+  const whatsappUrl = createWhatsappUrl(settings.whatsappNumber);
 
   return (
     <footer className="bg-navy py-14 text-white">
       <div className="container-page grid gap-10 md:grid-cols-[1.4fr_0.8fr_0.8fr_0.8fr]">
         <div>
-          <h2 className="text-2xl font-bold">{brandName}</h2>
+          <h2 className="text-2xl font-bold">{settings.brandName}</h2>
           <p className="mt-4 max-w-sm leading-7 text-white/75">
-            Compravendite, valutazioni e consulenza immobiliare tra Cefalù e
-            Capo d'Orlando.
+            {settings.defaultSeoDescription}
           </p>
         </div>
         <div>
@@ -34,18 +34,19 @@ export function Footer() {
         <div>
           <h3 className="font-semibold text-sand">Contatti</h3>
           <div className="mt-4 grid gap-2 text-white/75">
-            <a href={telHref}>{phoneDisplay}</a>
+            <a href={telHref}>{settings.phone}</a>
             <a href={whatsappUrl}>WhatsApp</a>
-            <a href={`mailto:${email}`}>{email}</a>
-            <span>{officeAddress}</span>
-            <a href={facebookUrl}>Facebook</a>
+            <a href={`mailto:${settings.email}`}>{settings.email}</a>
+            <span>{settings.officeAddress}</span>
+            {settings.facebookUrl ? <a href={settings.facebookUrl}>Facebook</a> : null}
+            {settings.instagramUrl ? <a href={settings.instagramUrl}>Instagram</a> : null}
           </div>
         </div>
         <div>
           <h3 className="font-semibold text-sand">Servizi</h3>
           <div className="mt-4 grid gap-2 text-white/75">
             {services.map((service) => (
-              <span key={service}>{service}</span>
+              <span key={service.title}>{service.title}</span>
             ))}
           </div>
         </div>

@@ -23,6 +23,7 @@ export async function fetchSanity<T>(query: string) {
     `https://${sanityProjectId}.api.sanity.io/v${sanityApiVersion}/data/query/${sanityDataset}`
   );
   url.searchParams.set("query", query);
+  url.searchParams.set("perspective", "published");
 
   try {
     const response = await fetch(url, {

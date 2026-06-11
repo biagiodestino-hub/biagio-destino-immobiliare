@@ -12,11 +12,12 @@ function getBackgroundImage(image: string) {
     return "linear-gradient(135deg, rgba(14, 46, 79, 0.92), rgba(24, 111, 145, 0.58) 48%, rgba(232, 214, 184, 0.88))";
   }
 
-  return `linear-gradient(180deg, rgba(9, 31, 56, 0.06), rgba(9, 31, 56, 0.38)), url(${image})`;
+  return `linear-gradient(180deg, rgba(9, 31, 56, 0.06), rgba(9, 31, 56, 0.38)), url("${image}")`;
 }
 
 export function ImageGallery({ title, images }: ImageGalleryProps) {
-  const galleryImages = images.length > 0 ? images : [""];
+  const validImages = images.filter(Boolean);
+  const galleryImages = validImages.length > 0 ? validImages : [""];
   const [activeIndex, setActiveIndex] = useState(0);
   const activeImage = galleryImages[activeIndex];
 

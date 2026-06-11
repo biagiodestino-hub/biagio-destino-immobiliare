@@ -1,3 +1,4 @@
+// Archivio storico: il frontend legge gli immobili esclusivamente da Sanity.
 export type Property = {
   slug: string;
   title: string;

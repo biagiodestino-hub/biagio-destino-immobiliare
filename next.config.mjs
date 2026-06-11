@@ -6,6 +6,14 @@ const projectRoot = dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: projectRoot,
+  async rewrites() {
+    return [
+      {
+        source: "/studio/:path+",
+        destination: "/studio",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

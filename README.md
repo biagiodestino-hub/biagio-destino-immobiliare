@@ -1,6 +1,6 @@
 # Biagio Destino Immobiliare
 
-Sito immobiliare sviluppato con Next.js, Tailwind CSS e TypeScript, pronto per Vercel.
+Sito immobiliare sviluppato con Next.js, Tailwind CSS, TypeScript e Sanity CMS.
 
 ## Pagine
 
@@ -13,7 +13,17 @@ Sito immobiliare sviluppato con Next.js, Tailwind CSS e TypeScript, pronto per V
 
 ## Sanity CMS
 
-Gli immobili vengono letti da Sanity quando sono configurate le variabili:
+Il sito legge da Sanity:
+
+- immobili
+- homepage
+- chi sono
+- contatti
+- impostazioni sito e SEO
+- servizi
+- zone servite
+
+Variabili richieste:
 
 ```text
 NEXT_PUBLIC_SANITY_PROJECT_ID=
@@ -21,12 +31,16 @@ NEXT_PUBLIC_SANITY_DATASET=production
 SANITY_API_READ_TOKEN=
 ```
 
-Se Sanity non è configurato o non risponde, il sito usa il fallback locale in `data/properties.ts`.
+I documenti `siteSettings`, `homePage`, `aboutPage` e `contactPage` sono
+singleton. Prima della loro compilazione, il sito usa fallback testuali
+temporanei.
 
-Nel CMS il documento `property` supporta:
-titolo, slug, prezzo, località, tipologia, piano, superficie, vani, bagni, descrizione, badge, caratteristiche, immagini multiple, evidenza homepage, link origine e pubblicazione.
+Gli immobili arrivano esclusivamente da Sanity:
 
-La homepage mostra solo immobili `isFeatured = true`; la pagina immobili mostra solo `published = true`.
+- la homepage mostra solo immobili con `isFeatured = true`
+- la pagina immobili mostra solo immobili con `published = true`
+- `data/properties.ts` resta come archivio e non viene usato dal frontend
+- se non ci sono immobili pubblicati, viene mostrato uno stato vuoto
 
 ## Avvio locale
 
@@ -35,19 +49,19 @@ npm install
 npm run dev
 ```
 
-## Build
+## Verifica
 
 ```bash
+npm run typecheck
 npm run build
 ```
 
-## Deploy su Vercel
+## Deploy Vercel
 
-1. Crea un repository GitHub con questi file.
+1. Carica il progetto su GitHub.
 2. Importa il repository su Vercel.
-3. Framework preset: Next.js.
-4. Build command: `npm run build`.
-5. Output: automatico per Next.js.
-6. Aggiungi il dominio finale `www.destinobiagioimmobiliare.it` e verifica le variabili ambiente.
+3. Seleziona il preset Next.js.
+4. Configura le variabili ambiente.
+5. Collega il dominio `www.destinobiagioimmobiliare.it`.
 
 Guida completa: [docs/deploy.md](docs/deploy.md).

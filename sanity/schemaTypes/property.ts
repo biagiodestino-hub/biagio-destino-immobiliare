@@ -1,5 +1,15 @@
 import { defineField, defineType } from "sanity";
 
+export const propertyCities = [
+  "Capo d'Orlando",
+  "Sant'Agata di Militello",
+  "Acquedolci",
+  "Tusa",
+  "Pollina",
+  "Cefalù",
+  "Campofelice di Roccella"
+];
+
 export const property = defineType({
   name: "property",
   title: "Immobile",
@@ -15,52 +25,29 @@ export const property = defineType({
       name: "slug",
       title: "Slug",
       type: "slug",
-      options: {
-        source: "title",
-        maxLength: 96
-      },
+      options: { source: "title", maxLength: 96 },
       validation: (Rule) => Rule.required()
     }),
+    defineField({ name: "price", title: "Prezzo", type: "string" }),
+    defineField({ name: "location", title: "Località", type: "string" }),
     defineField({
-      name: "price",
-      title: "Prezzo",
-      type: "string"
+      name: "city",
+      title: "Città",
+      type: "string",
+      options: {
+        list: propertyCities.map((city) => ({ title: city, value: city }))
+      }
     }),
-    defineField({
-      name: "location",
-      title: "Località",
-      type: "string"
-    }),
-    defineField({
-      name: "propertyType",
-      title: "Tipologia",
-      type: "string"
-    }),
-    defineField({
-      name: "floor",
-      title: "Piano",
-      type: "string"
-    }),
-    defineField({
-      name: "surface",
-      title: "Superficie",
-      type: "number"
-    }),
-    defineField({
-      name: "rooms",
-      title: "Vani",
-      type: "number"
-    }),
-    defineField({
-      name: "bathrooms",
-      title: "Bagni",
-      type: "number"
-    }),
+    defineField({ name: "propertyType", title: "Tipologia", type: "string" }),
+    defineField({ name: "floor", title: "Piano", type: "string" }),
+    defineField({ name: "surface", title: "Superficie", type: "number" }),
+    defineField({ name: "rooms", title: "Vani", type: "number" }),
+    defineField({ name: "bathrooms", title: "Bagni", type: "number" }),
     defineField({
       name: "description",
       title: "Descrizione",
       type: "text",
-      rows: 6
+      rows: 7
     }),
     defineField({
       name: "badges",
@@ -86,11 +73,7 @@ export const property = defineType({
       type: "boolean",
       initialValue: false
     }),
-    defineField({
-      name: "sourceUrl",
-      title: "Link origine",
-      type: "url"
-    }),
+    defineField({ name: "sourceUrl", title: "Link origine", type: "url" }),
     defineField({
       name: "published",
       title: "Pubblicato",
@@ -101,8 +84,16 @@ export const property = defineType({
   preview: {
     select: {
       title: "title",
-      subtitle: "location",
+      location: "location",
+      city: "city",
       media: "images.0"
+    },
+    prepare({ title, location, city, media }) {
+      return {
+        title,
+        subtitle: [city, location].filter(Boolean).join(" · "),
+        media
+      };
     }
   }
 });
