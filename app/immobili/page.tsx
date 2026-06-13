@@ -25,12 +25,7 @@ export default async function PropertiesPage() {
     getServiceAreas(),
     getSiteSettings()
   ]);
-  const cities = Array.from(
-    new Set([
-      ...serviceAreas.filter((area) => area.active).map((area) => area.name),
-      ...properties.map((property) => property.city)
-    ])
-  );
+  const cities = serviceAreas.map(({ name, slug }) => ({ name, slug }));
 
   return (
     <>

@@ -31,7 +31,12 @@ export function PropertyCard({ property }: PropertyCardProps) {
         </div>
         <p className="mt-4 text-2xl font-bold text-navy">{property.price}</p>
         <h2 className="mt-3 text-xl font-bold text-ink">{property.title}</h2>
-        <p className="mt-2 text-sm font-medium text-ink/60">{property.location}</p>
+        <p className="mt-2 text-sm font-medium text-ink/60">
+          {property.cityName}
+          {property.location !== property.cityName
+            ? ` · ${property.location}`
+            : ""}
+        </p>
         <div className="mt-5 flex flex-wrap gap-3 text-sm font-semibold text-ink">
           {property.surface > 0 ? <span>{property.surface} mq</span> : null}
           {property.rooms > 0 ? <span>{property.rooms} vani</span> : null}

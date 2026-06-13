@@ -1,15 +1,5 @@
 import { defineField, defineType } from "sanity";
 
-export const propertyCities = [
-  "Capo d'Orlando",
-  "Sant'Agata di Militello",
-  "Acquedolci",
-  "Tusa",
-  "Pollina",
-  "Cefalù",
-  "Campofelice di Roccella"
-];
-
 export const property = defineType({
   name: "property",
   title: "Immobile",
@@ -31,12 +21,24 @@ export const property = defineType({
     defineField({ name: "price", title: "Prezzo", type: "string" }),
     defineField({ name: "location", title: "Località", type: "string" }),
     defineField({
-      name: "city",
-      title: "Città",
-      type: "string",
+      name: "cityRef",
+      title: "Città/Zona",
+      type: "reference",
+      to: [{ type: "serviceArea" }],
       options: {
-        list: propertyCities.map((city) => ({ title: city, value: city }))
-      }
+        filter: "active == true"
+      },
+      description:
+        "Seleziona una zona attiva. Per aggiungere Caronia o altre località, crea prima la zona in 'Zone servite'."
+    }),
+    defineField({
+      name: "city",
+      title: "Città legacy",
+      type: "string",
+      readOnly: true,
+      hidden: ({ document }) => Boolean(document?.cityRef),
+      description:
+        "Campo mantenuto per compatibilità con gli immobili esistenti. Per i nuovi immobili usa Città/Zona."
     }),
     defineField({ name: "propertyType", title: "Tipologia", type: "string" }),
     defineField({ name: "floor", title: "Piano", type: "string" }),
@@ -85,13 +87,14 @@ export const property = defineType({
     select: {
       title: "title",
       location: "location",
-      city: "city",
+      cityName: "cityRef.name",
+      legacyCity: "city",
       media: "images.0"
     },
-    prepare({ title, location, city, media }) {
+    prepare({ title, location, cityName, legacyCity, media }) {
       return {
         title,
-        subtitle: [city, location].filter(Boolean).join(" · "),
+        subtitle: [cityName || legacyCity, location].filter(Boolean).join(" · "),
         media
       };
     }

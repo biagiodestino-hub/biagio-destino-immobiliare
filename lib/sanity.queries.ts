@@ -14,7 +14,9 @@ export type Property = {
   slug: string;
   price: string;
   location: string;
-  city: string;
+  cityName: string;
+  citySlug: string;
+  province: string;
   propertyType: string;
   floor?: string;
   surface: number;
@@ -99,9 +101,16 @@ export type ServiceArea = {
   active: boolean;
 };
 
-type SanityProperty = Omit<Property, "slug" | "images"> & {
+type SanityProperty = Omit<
+  Property,
+  "slug" | "images" | "cityName" | "citySlug" | "province"
+> & {
   slug?: string;
   images?: SanityImage[];
+  cityName?: string;
+  citySlug?: string;
+  province?: string;
+  legacyCity?: string;
 };
 
 export const fallbackSiteSettings: SiteSettings = {
@@ -242,7 +251,10 @@ const propertyProjection = `
   "slug": slug.current,
   price,
   location,
-  city,
+  "cityName": cityRef->name,
+  "citySlug": cityRef->slug.current,
+  "province": cityRef->province,
+  "legacyCity": city,
   propertyType,
   floor,
   surface,
@@ -343,7 +355,11 @@ const servicesQuery = `
 `;
 
 const serviceAreasQuery = `
-*[_type == "serviceArea" && active == true] | order(order asc, name asc) {
+*[
+  _type == "serviceArea" &&
+  active == true &&
+  !(_id in path("drafts.**"))
+] | order(order asc, name asc) {
   name,
   "slug": slug.current,
   province,
@@ -364,6 +380,44 @@ function mergeWithFallback<T extends object>(fallback: T, value: Partial<T> | nu
   return { ...fallback, ...Object.fromEntries(definedEntries) } as T;
 }
 
+function normalizeAreaName(value: string) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[’‘`´]/g, "'")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+function createAreaSlug(value: string) {
+  return normalizeAreaName(value).replace(/\s+/g, "-");
+}
+
+function dedupeServiceAreas(areas: ServiceArea[]) {
+  const slugs = new Set<string>();
+  const names = new Set<string>();
+
+  return areas.reduce<ServiceArea[]>((result, area) => {
+    if (!area.active || !area.name?.trim()) {
+      return result;
+    }
+
+    const name = area.name.trim();
+    const normalizedName = normalizeAreaName(name);
+    const slug = createAreaSlug(area.slug || name);
+
+    if (!slug || slugs.has(slug) || names.has(normalizedName)) {
+      return result;
+    }
+
+    slugs.add(slug);
+    names.add(normalizedName);
+    result.push({ ...area, name, slug });
+    return result;
+  }, []);
+}
+
 function toProperty(item: SanityProperty): Property | null {
   if (!item.title || !item.slug) {
     return null;
@@ -372,13 +426,21 @@ function toProperty(item: SanityProperty): Property | null {
   const images = (item.images ?? [])
     .map((image) => urlForImage(image))
     .filter((image): image is string => Boolean(image));
+  const cityName =
+    item.cityName ||
+    item.legacyCity ||
+    item.location?.split(" - ")[0] ||
+    "Altra località";
+  const citySlug = item.citySlug || createAreaSlug(cityName);
 
   return {
     title: item.title,
     slug: item.slug,
     price: item.price || "Prezzo su richiesta",
-    location: item.location || item.city || "Località da definire",
-    city: item.city || item.location?.split(" - ")[0] || "Altra località",
+    location: item.location || cityName || "Località da definire",
+    cityName,
+    citySlug,
+    province: item.province || "",
     propertyType: item.propertyType || "Immobile",
     floor: item.floor,
     surface: item.surface ?? 0,
@@ -425,7 +487,10 @@ export async function getServices() {
 
 export async function getServiceAreas() {
   const areas = await fetchSanity<ServiceArea[]>(serviceAreasQuery);
-  return areas && areas.length > 0 ? areas : fallbackServiceAreas;
+  const sanityAreas = areas ? dedupeServiceAreas(areas) : [];
+  return sanityAreas.length > 0
+    ? sanityAreas
+    : dedupeServiceAreas(fallbackServiceAreas);
 }
 
 export async function getPublishedProperties() {

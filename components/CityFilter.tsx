@@ -5,38 +5,54 @@ import type { Property } from "@/lib/sanity.queries";
 import { PropertyCard } from "@/components/PropertyCard";
 
 type CityFilterProps = {
-  cities: string[];
+  cities: Array<{
+    name: string;
+    slug: string;
+  }>;
   properties: Property[];
 };
 
 export function CityFilter({ cities, properties }: CityFilterProps) {
-  const [selectedCity, setSelectedCity] = useState("Tutti");
+  const [selectedCitySlug, setSelectedCitySlug] = useState("all");
   const filteredProperties = useMemo(
     () =>
-      selectedCity === "Tutti"
+      selectedCitySlug === "all"
         ? properties
-        : properties.filter((property) => property.city === selectedCity),
-    [properties, selectedCity]
+        : properties.filter(
+            (property) => property.citySlug === selectedCitySlug
+          ),
+    [properties, selectedCitySlug]
   );
 
   return (
     <>
       <div className="mb-10 flex flex-wrap gap-3 border-y border-stone py-5">
-        {["Tutti", ...cities].map((city) => {
-          const active = selectedCity === city;
+        <button
+          className={`rounded-md px-4 py-3 text-sm font-semibold transition ${
+            selectedCitySlug === "all"
+              ? "bg-navy text-white"
+              : "bg-mist text-navy hover:bg-sand-light"
+          }`}
+          onClick={() => setSelectedCitySlug("all")}
+          type="button"
+        >
+          Tutti
+        </button>
+        {cities.map((city) => {
+          const active = selectedCitySlug === city.slug;
 
           return (
             <button
-              key={city}
+              key={city.slug}
               className={`rounded-md px-4 py-3 text-sm font-semibold transition ${
                 active
                   ? "bg-navy text-white"
                   : "bg-mist text-navy hover:bg-sand-light"
               }`}
-              onClick={() => setSelectedCity(city)}
+              onClick={() => setSelectedCitySlug(city.slug)}
               type="button"
             >
-              {city}
+              {city.name}
             </button>
           );
         })}

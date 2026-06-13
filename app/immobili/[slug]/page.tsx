@@ -83,7 +83,9 @@ export default async function PropertyDetailPage({ params }: PageProps) {
                 ))}
               </div>
               <p className="mt-6 text-sm font-semibold uppercase tracking-[0.2em] text-gold">
-                {property.city} · {property.location}
+                {property.cityName}
+                {property.province ? ` (${property.province})` : ""} ·{" "}
+                {property.location}
               </p>
               <h1 className="mt-4 text-4xl font-bold leading-tight text-navy md:text-5xl">
                 {property.title}
